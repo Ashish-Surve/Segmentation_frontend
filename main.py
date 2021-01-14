@@ -15,6 +15,12 @@ HOST = "http://154.61.75.187:5000/"
 
 st.set_option("deprecation.showfileUploaderEncoding", False)
 
+st.set_page_config(
+        page_title="Segmentor",  # default page title
+        layout="wide",
+        initial_sidebar_state="expanded"  # "expanded", "collapsed"
+    )
+
 st.title("Image Segmentation Tool")
 try:
     response = requests.get(HOST)
@@ -25,11 +31,11 @@ except requests.exceptions.ConnectionError:
 
 if status_check == 200:
     print('Backend Server was online')
+    st.text('This tool is used to compare 3 segmentation models mentioned below')
     st.text('The backend Server is hosted on a private server with low capacity. Please be patient.')
     # Page when server is online
     image = st.file_uploader("Choose an image")
     st.text('This tool has been custom trained to segment cars/vehicles from images.')
-    st.text('3 segmentation models can be used')
     style = st.selectbox("Choose the model", [i for i in STYLES.keys()])
     st.markdown("More Info : [link](https://github.com/Ashish-Surve/Comparsion_Segmentation_models)")
 
