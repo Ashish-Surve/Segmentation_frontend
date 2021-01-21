@@ -17,7 +17,6 @@ st.set_option("deprecation.showfileUploaderEncoding", False)
 
 st.set_page_config(
         page_title="Segmentor",  # default page title
-        layout="wide",
         initial_sidebar_state="expanded"  # "expanded", "collapsed"
     )
 
@@ -54,13 +53,23 @@ if status_check == 200:
             # image_p = r"../backend/"+ img_path.get("name")
             # Docker
             # image_p = img_path.get("name")
-            image = Image.open("sample_image.png")
 
-            st.image(image)
+            image2 = Image.open("sample_image.png")
+            # st.image(image.getvalue(),width=480)
+            # st.image(image2)
+
+            col1, col2 = st.beta_columns(2)
+
+            original = image.getvalue()
+            col1.header("Original")
+            col1.image(original, use_column_width=True)
+
+            segmented = image2
+            col2.header("Output")
+            col2.image(segmented, use_column_width=True)
+
             os.remove("sample_image.png")
-            displayed_styles = [style]
-            displayed = 1
-            total = len(STYLES)
+        
 else :
     print('Backend Server is offline')
     st.text('The backend Server is offline. The Server is paid and needs support to stay online.')
